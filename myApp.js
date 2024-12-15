@@ -2,36 +2,20 @@ const express = require('express');
 const helmet = require('helmet');
 const app = express();
 
-app.use(helmet.hidePoweredBy());
-app.use(helmet.frameguard({ action: 'deny' }));
-app.use(helmet.xssFilter());
-app.use(helmet.noSniff());
-app.use(helmet.ieNoOpen());
 
-const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
-app.use(
-  helmet.hsts({
-    maxAge: ninetyDaysInSeconds,
-    force: true,    // Override Gitpod's default HSTS settings
-  })
-);
 
-app.use(helmet.dnsPrefetchControl());  // performance tradeoff
-app.use(helmet.noCache());             // performance tradeoff
-
-app.use(
-  helmet.contentSecurityPolicy({
+app.use(helmet({
+  frameguard: {         // configure
+    action: 'deny'
+  },
+  contentSecurityPolicy: {    // enable and configure
     directives: {
-      defaultSrc: ["'self'"],  // Allow resources only from self
-      scriptSrc: ["'self'", "trusted-cdn.com"],  // Allow scripts 
-                                                //from self and a trusted CDN
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "trusted-cdn.com"],
     }
-  })
-);
-
-
-
-
+  },
+  noCache: true
+}))
 
 
 
