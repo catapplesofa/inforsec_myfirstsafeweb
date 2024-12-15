@@ -19,6 +19,16 @@ app.use(
 app.use(helmet.dnsPrefetchControl());  // performance tradeoff
 app.use(helmet.noCache());             // performance tradeoff
 
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],  // Allow resources only from self
+      scriptSrc: ["'self'", "trusted-cdn.com"],  // Allow scripts 
+                                                //from self and a trusted CDN
+    }
+  })
+);
+
 
 
 
