@@ -12,11 +12,12 @@ const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
 app.use(
   helmet.hsts({
     maxAge: ninetyDaysInSeconds,
-    force: true, // Override Gitpod's default HSTS settings
+    force: true,    // Override Gitpod's default HSTS settings
   })
 );
 
-app.use(helmet.dnsPrefetchControl());
+app.use(helmet.dnsPrefetchControl());  // performance tradeoff
+app.use(helmet.noCache());             // performance tradeoff
 
 
 
