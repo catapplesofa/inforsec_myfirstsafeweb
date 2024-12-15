@@ -40,9 +40,15 @@ const app = express();
 
 
 
+// Not required, but recommended for Express users:
+app.disable("x-powered-by");
 
-
-
+// Ask Helmet to ignore the X-Powered-By header.
+app.use(
+  helmet({
+    xPoweredBy: false,
+  })
+);
 
 
 
